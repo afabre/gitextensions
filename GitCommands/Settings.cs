@@ -549,6 +549,12 @@ namespace GitCommands
             get { return SafeGet("tagcolor", Color.DarkBlue, ref _tagColor); }
             set { SafeSet("tagcolor", value, ref _tagColor); }
         }
+        private static Color? _fixupCommitColor;
+        public static Color FixupCommitColor
+        {
+            get { return SafeGet("fixupCommitColor", SystemColors.InactiveCaption, ref _fixupCommitColor); }
+            set { SafeSet("fixupCommitColor", value, ref _fixupCommitColor); }
+        }
 
         private static Color? _graphColor;
         public static Color GraphColor

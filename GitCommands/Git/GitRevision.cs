@@ -64,5 +64,14 @@ namespace GitCommands
                 Author.StartsWith(searchString, StringComparison.CurrentCultureIgnoreCase) ||
                 Message.ToLower().Contains(searchString);
         }
+
+        /// <summary>
+        /// Determine wether the commit looks like a fixup or squash commit, meant for futur interactive rebase.
+        /// </summary>
+        /// <returns>True if the commit looks like a fixup or squash commit</returns>
+        public bool IsFixupOrSquashCommit()
+        {
+            return Message.StartsWith("fixup! ") || Message.StartsWith("squash! ");
+        }
     }
 }

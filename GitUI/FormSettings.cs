@@ -206,6 +206,10 @@ namespace GitUI
                 _NO_TRANSLATE_ColorOtherLabel.Text = Settings.OtherTagColor.Name;
                 _NO_TRANSLATE_ColorOtherLabel.ForeColor =
                     ColorHelper.GetForeColorForBackColor(_NO_TRANSLATE_ColorOtherLabel.BackColor);
+                _NO_TRANSLATE_ColorFixupCommitLabel.BackColor = Settings.FixupCommitColor;
+                _NO_TRANSLATE_ColorFixupCommitLabel.Text = Settings.FixupCommitColor.Name;
+                _NO_TRANSLATE_ColorFixupCommitLabel.ForeColor =
+                    ColorHelper.GetForeColorForBackColor(_NO_TRANSLATE_ColorFixupCommitLabel.BackColor);
 
 
                 _NO_TRANSLATE_ColorAddedLineLabel.BackColor = Settings.DiffAddedColor;
@@ -445,6 +449,7 @@ namespace GitUI
             Settings.BranchColor = _NO_TRANSLATE_ColorBranchLabel.BackColor;
             Settings.RemoteBranchColor = _NO_TRANSLATE_ColorRemoteBranchLabel.BackColor;
             Settings.OtherTagColor = _NO_TRANSLATE_ColorOtherLabel.BackColor;
+            Settings.FixupCommitColor = _NO_TRANSLATE_ColorFixupCommitLabel.BackColor;
 
             Settings.DiffAddedColor = _NO_TRANSLATE_ColorAddedLineLabel.BackColor;
             Settings.DiffRemovedColor = _NO_TRANSLATE_ColorRemovedLine.BackColor;
@@ -1612,6 +1617,16 @@ namespace GitUI
             _NO_TRANSLATE_ColorOtherLabel.Text = colorDialog.Color.Name;
             _NO_TRANSLATE_ColorOtherLabel.ForeColor =
                 ColorHelper.GetForeColorForBackColor(_NO_TRANSLATE_ColorOtherLabel.BackColor);
+        }
+
+        private void ColorFixupCommitLabel_Click(object sender, EventArgs e)
+        {
+            var colorDialog = new ColorDialog { Color = _NO_TRANSLATE_ColorFixupCommitLabel.BackColor };
+            colorDialog.ShowDialog(this);
+            _NO_TRANSLATE_ColorFixupCommitLabel.BackColor = colorDialog.Color;
+            _NO_TRANSLATE_ColorFixupCommitLabel.Text = colorDialog.Color.Name;
+            _NO_TRANSLATE_ColorFixupCommitLabel.ForeColor =
+                ColorHelper.GetForeColorForBackColor(_NO_TRANSLATE_ColorFixupCommitLabel.BackColor);
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)

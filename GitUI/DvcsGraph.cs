@@ -49,6 +49,7 @@ namespace GitUI
         private int LANE_LINE_WIDTH = 2;
         private const int MAX_LANES = 30;
         private Brush selectionBrush;
+        private Brush fixupCommitBrush;
 
         private readonly AutoResetEvent backgroundEvent = new AutoResetEvent(false);
         private readonly Graph graphData;
@@ -93,13 +94,15 @@ namespace GitUI
                 Select();
         }
 
-        public void SetDimensions(int node_dimension, int lane_width, int lane_line_width, int row_height, Brush selectionBrush)
+        public void SetDimensions(int node_dimension, int lane_width, int lane_line_width, int row_height,
+            Brush selectionBrush, Brush fixupCommitBrush)
         {
             RowTemplate.Height = row_height;
             NODE_DIMENSION = node_dimension;
             LANE_WIDTH = lane_width;
             LANE_LINE_WIDTH = lane_line_width;
             this.selectionBrush = selectionBrush;
+            this.fixupCommitBrush = fixupCommitBrush;
 
             dataGrid_Resize(null, null);
         }
@@ -478,11 +481,14 @@ namespace GitUI
                 {
                     if (e.ColumnIndex == 0)
                     {
+                        Brush brush;
                         if ((e.State & DataGridViewElementStates.Selected) == DataGridViewElementStates.Selected)
-                            e.Graphics.FillRectangle(
-                                selectionBrush, e.CellBounds);
+                            brush = selectionBrush;
+                        else if (row.Node.Data is GitRevision && ((GitRevision)row.Node.Data).IsFixupOrSquashCommit())
+                            brush = fixupCommitBrush;
                         else
-                            e.Graphics.FillRectangle(new SolidBrush(Color.White), e.CellBounds);
+                            brush = new SolidBrush(Color.White);
+                        e.Graphics.FillRectangle(brush, e.CellBounds);
 
                         Rectangle srcRect = drawGraph(e.RowIndex);
                         if (!srcRect.IsEmpty)
